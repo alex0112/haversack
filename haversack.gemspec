@@ -1,4 +1,3 @@
-
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "haversack/version"
@@ -10,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["alarsen0112@gmail.com"]
 
   spec.summary       = %q{Knapsack Abstraction}
-  spec.description   = %q{Haversack is an abstraction of a Knapsack, it extends ruby's builtin Enumerable class.}
+  spec.description   = %q{Haversack is an enumberable abstraction of a Knapsack}
   spec.homepage      = "https://github.com/alex0112/haversack"
   spec.license       = "MIT"
 
@@ -33,9 +32,11 @@ Gem::Specification.new do |spec|
   end
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
+  spec.require_paths = ["lib/haversack.rb"]
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "factory_bot", "~> 4.0"
+
 end
