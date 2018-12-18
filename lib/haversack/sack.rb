@@ -15,15 +15,15 @@ class Sack
   end
   
   def contents=(new_contents)
-    raise KnapsackCapacityExceededError if exceeds_capacity? new_contents
-    raise KnapsackWeightExceededError   if exceeds_weight? new_contents
-    raise KnapsackContentError          if has_non_items? new_contents
+    raise Haversack::KnapsackCapacityExceededError if exceeds_capacity? new_contents
+    raise Haversack::KnapsackWeightExceededError   if exceeds_weight? new_contents
+    raise Haversack::KnapsackContentError          if has_non_items? new_contents
     
     @contents = new_contents
   end
 
   def has_non_items?(contents)
-    contents.any? { |e| !e.is_a? Item }
+    contents.any? { |e| !e.is_a? Haversack::Item }
   end
 
   def will_fit_weight?(item)
@@ -37,7 +37,7 @@ class Sack
   end
 
   def push(item)
-    will_fit? item ? @contents.push(item) : raise(KnapsackContentError) ## TODO: This should return an error that describes wether the weight or capacity constraint failed
+    will_fit? item ? @contents.push(item) : raise(Haversack::KnapsackContentError) ## TODO: This should return an error that describes wether the weight or capacity constraint failed
     @contents
   end
 
