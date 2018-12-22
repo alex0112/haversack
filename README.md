@@ -1,8 +1,26 @@
 # Haversack
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/haversack`. To experiment with that code, run `bin/console` for an interactive prompt.
+Haversack is an enumerable abstraction of a [Knapsack](https://en.wikipedia.org/wiki/Knapsack_problem).
 
-TODO: Delete this and the text above, and describe your gem
+## Usage
+
+```ruby
+require 'haversack'
+
+## Basic Usage:
+haversack = Sack.new(capacity: 10, weight: 10)
+items     = Array.new(10) { Haversack::Item.new(weight: 1, size: 1) }
+
+haversack.contents = items
+
+## Haversack provides constraints upon what items may be set as the knapsack contents:
+too_large = Array.new(haversack.capacity + 1) { Haversack::Item.new }
+haversack.contents = too_large # => Haversack::KnapsackCapacityExceededError
+
+## Or you may add one item at a time
+item = Haversack::Item.new
+haversack.push item if haversack.will_fit? item
+```
 
 ## Installation
 
@@ -20,9 +38,6 @@ Or install it yourself as:
 
     $ gem install haversack
 
-## Usage
-
-TODO: Write usage instructions here
 
 ## Development
 
