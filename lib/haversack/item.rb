@@ -4,7 +4,7 @@ module Haversack
     attr_accessor :size
     attr_accessor :data
     
-    def initialize(weight:, size: 1, data: nil)
+    def initialize(weight: 1, size: 1, data: nil)
       @weight = weight
       @size   = size
       @data   = data
