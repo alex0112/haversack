@@ -149,10 +149,10 @@ describe Sack do
     end
   end
   
-  describe '.will_fit?' do
+  describe '.fits_item?' do
     context 'given a non-item' do
       it 'returns false' do
-        expect(@sack.will_fit? "").to be false
+        expect(@sack.fits_item? "").to be false
       end
     end
 

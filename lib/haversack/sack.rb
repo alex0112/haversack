@@ -45,12 +45,12 @@ class Sack
     item.size < @available_capacity
   end
 
-  def will_fit?(item)
+  def fits_item?(item)
     (item.is_a? Haversack::Item) && (fits_item_capacity?(item) && fits_item_weight?(item))
   end
 
-  def push(item) ## TODO: This should return an error that describes which constraint failed
-    will_fit? item ? @contents.push(item) : raise(Haversack::KnapsackContentError) 
+  def push(item) ## TODO: Return an error that describes which constraint failed
+    fits_item? item ? @contents.push(item) : raise(Haversack::KnapsackContentError)
     @contents
   end
 
