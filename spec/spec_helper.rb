@@ -1,5 +1,6 @@
 require "bundler/setup"
 require "haversack"
+require "haversack/itemcollection"
 require "factory_bot"
 
 RSpec.configure do |config|
