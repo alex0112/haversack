@@ -3,7 +3,7 @@ module Haversack
 
     def initialize(data, &block)
       if !block_given?
-        raise ArgumentError, "expected #{data} to contain only elements of class Haversack::Item" unless data.is_a?(Array) && only_items?(data)
+        raise ArgumentError, "expected #{data} to contain only elements of class Haversack::Item" unless data.is_a?(Array) && ItemCollection.only_items?(data)
       end
 
       @size   = self.size
@@ -25,8 +25,7 @@ module Haversack
       super
     end
 
-    private
-    def only_items?(data)
+    def self.only_items?(data)
       data.all? { |el| el.is_a? Haversack::Item }
     end
     
