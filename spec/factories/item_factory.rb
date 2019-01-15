@@ -10,7 +10,7 @@ FactoryBot.define do
     factory :heavy_item do
       weight { 2 }
     end
-    
+
     initialize_with { new(weight:weight, size:size) }
   end
 end

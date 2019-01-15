@@ -57,7 +57,32 @@ describe Haversack::ItemCollection do
         expect(@collection.last).to eql uniq_item
       end
     end
-    
+  end
+
+  describe '#only_items?' do
+    context 'given data with no items' do
+      let(:non_item_array) { Array(1..10) }
+      
+      it 'returns false' do
+        expect(Haversack::ItemCollection.only_items? non_item_array).to be false
+      end
+    end
+
+    context 'given data with only items' do
+      let(:item_array) { Array.new(10) { build(:item) } }
+
+      it 'returns true' do
+        expect(Haversack::ItemCollection.only_items? item_array).to be true
+      end
+    end
+
+    context 'given an empty data array' do
+      let(:empty_array) { Array.new }
+
+      it 'returns true' do
+        expect(Haversack::ItemCollection.only_items? empty_array).to be true
+      end
+    end
   end
   
 end
