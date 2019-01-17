@@ -6,22 +6,8 @@ Haversack is an enumerable abstraction of a [Knapsack](https://en.wikipedia.org/
 
 ## Usage
 
-#### Basic Usage:
-```ruby
-require 'haversack'
-
-haversack = Sack.new(capacity: 10, weight: 10)
-items     = Array.new(10) { Haversack::Item.new(weight: 1, size: 1) }
-
-haversack.contents = items
-```
-Only objects of the `Haversack::Item` class may be added to a haversack's contents.
-
-#### Haversack provides constraints upon what items may be set as the knapsack contents:
-```ruby
-too_large = Array.new(haversack.capacity + 1) { Haversack::Item.new }
-haversack.contents = too_large # => Haversack::KnapsackCapacityExceededError
-```
+### Stub
+...
 
 #### Or you may add one item at a time
 ```ruby
