@@ -1,7 +1,4 @@
 describe Sack do
-  before(:each) do
-    @sack = build(:sack)
-  end
 
   describe '#initialize' do
     context 'when no capacity parameter is present' do
@@ -88,9 +85,11 @@ describe Sack do
   end
   
   describe '.fits_item?' do
+    let(:sack) { build(:sack) }
+    
     context 'given a non-item' do
       it 'returns false' do
-        expect(@sack.fits_item? "").to be false
+        expect(sack.fits_item? "").to be false
       end
     end
 
@@ -217,6 +216,74 @@ describe Sack do
         expect(near_full_sack.exceeds_capacity? item).to be false
       end
     end
+  end
+
+  describe '.contents_fit_capacity?' do
+    let(:sack) { build(:empty_sack) }
+
+    context 'given contents that would exceed capacity' do
+      let(:contents_too_large) {  build(:huge_contents) }
+
+      it 'returns false' do
+        expect(sack.contents_fit_capacity? contents_too_large).to be false
+      end
+    end
+    
+    context 'given contents that would fit capacity' do
+      let(:normal_contents) { build(:item_collection) }
+      
+      it 'returns true' do
+        expect(sack.contents_fit_capacity? normal_contents).to be true
+      end
+    end 
+  end
+
+  describe '.contents_fit_weight?' do
+    let(:sack) { build(:empty_sack) }
+
+    context 'given contents that would exceed weight' do
+      let(:contents_too_large) {  build(:huge_contents) }
+
+      it 'returns false' do
+        expect(sack.contents_fit_weight? contents_too_large).to be false
+      end
+    end
+    
+    context 'given contents that would fit weight' do
+      let(:normal_contents) { build(:item_collection) }
+      
+      it 'returns true' do
+        expect(sack.contents_fit_weight? normal_contents).to be true
+      end
+    end 
+  end
+
+  describe '.contents_fit?' do
+    let(:sack) { build(:empty_sack) }
+    
+    context 'when given a non-child of Haversack::ItemCollection' do
+      let(:non_contents) { Array.new(5) }
+
+      it 'returns false' do
+        expect(sack.fits_contents?(non_contents)).to be false
+      end
+    end
+
+    context 'when given a Haversack::ItemCollection' do
+      let(:item_collection) { build(:item_collection) }
+      
+      it 'returns true' do
+        expect(sack.fits_contents?(item_collection)).to be true
+      end
+    end
+
+    context 'when given a child of a Haversack::ItemCollection' do
+      let(:item_collection_child) { build(:child) }
+      it 'returns true' do
+        expect(sack.fits_contents?(item_collection_child)).to be true
+      end
+    end
+    
   end
   
 end
