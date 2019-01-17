@@ -12,8 +12,8 @@ class Sack < Haversack::ItemCollection
     
     block_given? ? super(data, &block) : super(data)
     
-    raise Haversack::KnapsackCapacityExceededError if contents_exceed_capacity?
-    raise Haversack::KnapsackWeightExceededError   if contents_exceed_weight?
+    raise Haversack::KnapsackCapacityExceededError if self_contents_exceed_capacity?
+    raise Haversack::KnapsackWeightExceededError   if self_contents_exceed_weight?
     end
 
   def available_weight
@@ -41,20 +41,41 @@ class Sack < Haversack::ItemCollection
   end
     
   def fits_item?(item)
-    item.is_a?(Haversack::Item) && fits_capacity?(item) && fits_weight?(item)
+    item.is_a?(Haversack::Item) &&
+      fits_capacity?(item) &&
+      fits_weight?(item)
   end
   alias :fits? :fits_item?
   
   def push(item) ## TODO: Describe which constraint failed
     fits_item?(item) ? super : raise(Haversack::KnapsackContentError)
   end
+
+  def contents_fit_weight?(contents)
+    is_itemcollection?(contents) ? (contents.weight <= @max_weight) : false
+  end
+
+  def contents_fit_capacity?(contents)
+    is_itemcollection?(contents) ? (contents.size <= @capacity) : false
+  end
+
+  def fits_contents?(contents)
+    is_itemcollection?(contents) &&
+      contents_fit_capacity?(contents) &&
+      contents_fit_weight?(contents)
+  end
   
   private
-  def contents_exceed_weight?
+  def is_itemcollection?(contents)
+    contents.class.ancestors.include? Haversack::ItemCollection
+  end
+  
+
+  def self_contents_exceed_weight?
     weight > @max_weight
   end
   
-  def contents_exceed_capacity?
+  def self_contents_exceed_capacity?
     size > @capacity
   end
   
