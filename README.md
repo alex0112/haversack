@@ -4,17 +4,24 @@
 
 Haversack is an enumerable abstraction of a [Knapsack](https://en.wikipedia.org/wiki/Knapsack_problem).
 
-## Usage
+## Basic Usage:
+```ruby 
+require 'haversack'
 
-### Stub
-...
+haversack = Sack.new(capacity: 10, weight: 10)
+items     = Array.new(10) { Haversack::Item.new(weight: 1, size: 1) }
 
-#### Or you may add one item at a time
-```ruby
+haversack.contents = items
+
+## Haversack provides constraints upon what items may be set as the knapsack contents:
+too_large = Array.new(haversack.capacity + 1) { Haversack::Item.new }
+haversack.contents = too_large # => Haversack::KnapsackCapacityExceededError
+
+## Or you may add one item at a time
 item = Haversack::Item.new
-haversack.push item if haversack.fits_item? item
-```
+haversack.push(item) if haversack.fits_item? item
 
+```
 ## Installation
 
 Add this line to your application's Gemfile:
