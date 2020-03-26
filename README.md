@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/alex0112/haversack.svg?branch=master)](https://travis-ci.org/alex0112/haversack) [![Maintainability](https://api.codeclimate.com/v1/badges/7ff5206188bb44910d07/maintainability)](https://codeclimate.com/github/alex0112/haversack/maintainability)
 
 
-Haversack is an enumerable abstraction of a [Knapsack](https://en.wikipedia.org/wiki/Knapsack_problem).
+Haversack is an enumerable abstraction of a [Knapsack](https://en.wikipedia.org/wiki/Knapsack_problem).  Its intended use was for projects [like this one](https://rollout.io/blog/using-genetic-algorithms-in-ruby/).
 
 ## Basic Usage:
 ```ruby 
